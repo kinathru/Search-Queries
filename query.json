@@ -1,0 +1,207 @@
+{
+	"query": {
+		"function_score": {
+			"query": {
+				"bool": {
+					"must": [{
+						"range": {
+							"frd": {
+								"from": "2017-10-18",
+								"to": null,
+								"include_lower": true,
+								"include_upper": true,
+								"boost": 1.0
+							}
+						}
+					},
+					{
+						"term": {
+							"ifrd": {
+								"value": 20171125,
+								"boost": 1.0
+							}
+						}
+					},
+					{
+						"term": {
+							"yy": {
+								"value": 2017,
+								"boost": 1.0
+							}
+						}
+					},
+					{
+						"term": {
+							"mm": {
+								"value": 11,
+								"boost": 1.0
+							}
+						}
+					},
+					{
+						"term": {
+							"hbt": {
+								"value": "HOTE",
+								"boost": 1.0
+							}
+						}
+					},
+					{
+						"term": {
+							"dur.v": {
+								"value": 7,
+								"boost": 1.0
+							}
+						}
+					},
+					{
+						"bool": {
+							"should": [{
+								"term": {
+									"dsl.i": {
+										"value": 5073,
+										"boost": 1.0
+									}
+								}
+							},
+							{
+								"term": {
+									"altl.i": {
+										"value": 5073,
+										"boost": 1.0
+									}
+								}
+							}],
+							"disable_coord": false,
+							"adjust_pure_negative": true,
+							"minimum_should_match": "1",
+							"boost": 1.0
+						}
+					},
+					{
+						"bool": {
+							"must": [{
+								"exists": {
+									"field": "rat.c",
+									"boost": 1.0
+								}
+							}],
+							"disable_coord": false,
+							"adjust_pure_negative": true,
+							"boost": 1.0
+						}
+					}],
+					"should": [{
+						"term": {
+							"cmp": {
+								"value": "FDM",
+								"boost": 1.0
+							}
+						}
+					},
+					{
+						"term": {
+							"div": {
+								"value": "045",
+								"boost": 1.0
+							}
+						}
+					},
+					{
+						"term": {
+							"bnd": {
+								"value": "FDM",
+								"boost": 1.0
+							}
+						}
+					},
+					{
+						"term": {
+							"dch": {
+								"value": "C",
+								"boost": 1.0
+							}
+						}
+					},
+					{
+						"term": {
+							"cur": {
+								"value": "DKK",
+								"boost": 1.0
+							}
+						}
+					}],
+					"disable_coord": false,
+					"adjust_pure_negative": true,
+					"boost": 1.0
+				}
+			},
+			"functions": [{
+				"filter": {
+					"term": {
+						"ifrd": {
+							"value": 20171125,
+							"boost": 1.0
+						}
+					}
+				},
+				"weight": 1.0
+			},
+			{
+				"filter": {
+					"bool": {
+						"disable_coord": false,
+						"adjust_pure_negative": true,
+						"boost": 1.0
+					}
+				},
+				"weight": 50.0
+			}],
+			"score_mode": "sum",
+			"boost_mode": "sum",
+			"max_boost": 3.4028235E38,
+			"boost": 1.0
+		}
+	},
+	"aggregations": {
+		"aggr_lv11_rating": {
+			"top_hits": {
+				"from": 0,
+				"size": 100,
+				"version": false,
+				"explain": false,
+				"_source": {
+					"includes": ["yb",
+					"ipv",
+					"hbt",
+					"itms",
+					"cntl",
+					"dpl",
+					"ifrd",
+					"frd",
+					"rat",
+					"dur",
+					"kwd",
+					"acn",
+					"cmpk",
+					"rat.c"],
+					"excludes": []
+				},
+				"sort": [{
+					"yb": {
+						"order": "desc"
+					}
+				},
+				{
+					"_score": {
+						"order": "desc"
+					}
+				}],
+				"track_scores": true
+			}
+		}
+	},
+	"ext": {
+		
+	}
+}
